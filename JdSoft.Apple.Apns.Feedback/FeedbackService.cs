@@ -87,7 +87,8 @@ namespace JdSoft.Apple.Apns.Feedback
  	    //      The default is UserKeySet, which has caused internal encryption errors,
  	    //      Because of lack of permissions on most hosting services.
  	    //      So MachineKeySet should be used instead.
-            certificate = new X509Certificate2(p12FileBytes, null, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
+            string s = null;
+            certificate = new X509Certificate2(p12FileBytes, s, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
             ConnectAttempts = 3;
             ReconnectDelay = 10000;
         }
@@ -160,7 +161,8 @@ namespace JdSoft.Apple.Apns.Feedback
  	    //      The default is UserKeySet, which has caused internal encryption errors,
  	    //      Because of lack of permissions on most hosting services.
  	    //      So MachineKeySet should be used instead.
-            certificate = new X509Certificate2(p12FileBytes, null, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
+            string s = null;
+            certificate = new X509Certificate2(p12FileBytes, s, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
             ConnectAttempts = 3;
         }
 
