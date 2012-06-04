@@ -34,7 +34,7 @@ namespace JdSoft.Apple.Apns.Notifications
 		public Notification(string deviceToken)
 		{
 			if (!string.IsNullOrEmpty(deviceToken) && deviceToken.Length != DEVICE_TOKEN_STRING_SIZE)
-				throw new BadDeviceTokenException(deviceToken);
+				throw new BadDeviceTokenException(deviceToken, CustomMessageId);
 
 			DeviceToken = deviceToken;
 			Payload = new NotificationPayload();
@@ -43,7 +43,7 @@ namespace JdSoft.Apple.Apns.Notifications
 		public Notification(string deviceToken, NotificationPayload payload)
 		{
 			if (!string.IsNullOrEmpty(deviceToken) && deviceToken.Length != DEVICE_TOKEN_STRING_SIZE)
-				throw new BadDeviceTokenException(deviceToken);
+                throw new BadDeviceTokenException(deviceToken, CustomMessageId);
 
 			DeviceToken = deviceToken;
 			Payload = payload;
@@ -58,6 +58,15 @@ namespace JdSoft.Apple.Apns.Notifications
 			set;
 		}
 
+        /// <summary>
+        /// Custom message Id; Can be set by client to identify message on success, failed etc handlers
+        /// </summary>
+        public string CustomMessageId 
+        {
+            get; 
+            set; 
+        }
+
 		public override string ToString()
 		{
 			return Payload.ToJson();
@@ -69,7 +78,7 @@ namespace JdSoft.Apple.Apns.Notifications
 
             if (len == 0)
             {
-                throw new BadDeviceTokenException(@"");
+                throw new BadDeviceTokenException(@"", null);
             }
 
             StringBuilder hexString = new StringBuilder(len);
@@ -108,7 +117,7 @@ namespace JdSoft.Apple.Apns.Notifications
 				deviceToken[i] = byte.Parse(DeviceToken.Substring(i * 2, 2), System.Globalization.NumberStyles.HexNumber);
 
 			if (deviceToken.Length != DEVICE_TOKEN_BINARY_SIZE)
-				throw new BadDeviceTokenException(DeviceToken);
+                throw new BadDeviceTokenException(DeviceToken, CustomMessageId);
 			
 
 			byte[] deviceTokenSize = BitConverter.GetBytes(IPAddress.HostToNetworkOrder(Convert.ToInt16(deviceToken.Length)));
